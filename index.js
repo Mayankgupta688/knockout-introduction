@@ -1,30 +1,17 @@
-var userInfo = {
-    name: ko.observable("Mayank"),
-    age: ko.observable(10), 
-    salutation:ko.observable("Hello World")
+var observableArrayData = ko.observableArray([
+    { name: "Mayank", age: 10 },
+    { name: "Anshul", age: 20 }
+]);
+
+
+function userInfoData() {
+    this.name = ko.observable("Mayank");
+    this.age = ko.observable("20");
+    this.fullName = ko.computed(function() {
+        if(this.age() > 10) {
+            return this.name() + "(Senior)";
+        } else return "(Junior)";
+    }, this);
 }
 
-function changeName() {
-    userInfo.name("Anshul");
-    userInfo.age(20);
-}
-
-function getAge() {
-    alert(userInfo.age())
-}
-
-userInfo.name.subscribe(function() {
-    userInfo.salutation("Hello All, I am " + userInfo.name())
-});
-
-function isCorrectName() {
-    return userInfo.name() == "Anshul Gupta"
-}
-
-ko.when(function() {
-    return isCorrectName();
-}, function() {
-    alert("Value has been correctly Changed");
-})
-
-ko.applyBindings(userInfo);
+ko.applyBindings(new userInfoData());
